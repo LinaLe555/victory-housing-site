@@ -1,0 +1,20 @@
+.body{
+    background-color: rgb(180, 209, 231);
+}
+
+.button{
+    border-radius: 15px;
+    background-color: rgb(120, 196, 196);
+}
+
+.form{
+    display: flex;
+    justify-content: center;
+    flex-direction: column ;
+    text-align: center;
+    width: 43%;
+    margin: 0 auto;
+    margin-top: 45px;
+}
+
+.form * {margin-bottom: 10px;}

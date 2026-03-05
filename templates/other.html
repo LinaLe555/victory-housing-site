@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Прочие объекты | Жилье победы</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #4a4e69 0%, #2e3b4e 100%);
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '✨🔮🎯⚡💫';
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-15deg);
+            font-size: 250px;
+            opacity: 0.05;
+            white-space: nowrap;
+            pointer-events: none;
+            z-index: 0;
+            animation: rotate 30s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: translate(-50%, -50%) rotate(-15deg); }
+            to { transform: translate(-50%, -50%) rotate(345deg); }
+        }
+
+        .main {
+            display: grid;
+            grid-template-rows: auto 1fr auto;
+            grid-template-columns: 300px 1fr;
+            min-height: calc(100vh - 40px);
+            max-width: 1600px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 40px;
+            overflow: hidden;
+            box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.6), 0 0 0 3px rgba(255, 215, 0, 0.3) inset;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .item {
+            transition: all 0.3s ease;
+        }
+
+        /* Левая навигация - эклектичный стиль */
+        .nav {
+            grid-row: span 2;
+            background: linear-gradient(145deg, #2c3e50 0%, #1e2b3a 100%);
+            color: #fff;
+            padding: 35px 25px;
+            border: none;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 4px 0 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav::before {
+            content: '🎲🎨🎭🎪🎢';
+            position: absolute;
+            top: -20px;
+            right: -40px;
+            font-size: 220px;
+            opacity: 0.1;
+            transform: rotate(25deg);
+            white-space: nowrap;
+            line-height: 1;
+            pointer-events: none;
+        }
+
+        .nav::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(45deg, transparent, transparent 30px, rgba(255,215,0,0.05) 30px, rgba(255,215,0,0.05) 60px);
+            pointer-events: none;
+        }
+
+        .search {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            color: #fff;
+            border-radius: 50px;
+            padding: 16px 25px;
+            font-size: 16px;
+            backdrop-filter: blur(8px);
+            transition: all 0.3s ease;
+            margin-bottom: 35px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .search:focus {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: #ffd700;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.4);
+            color: #fff;
+            transform: scale(1.02);
+        }
+
+        .search::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+            font-style: italic;
+        }
+
+        .filtr {
+            margin: 30px 0 20px;
+        }
+
+        .filtr a {
+            color: #1e2b3a;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 700;
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #ffd700, #ffb347);
+            border-radius: 50px;
+            display: inline-block;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3), 0 2px 0 #b8860b inset;
+            letter-spacing: 0.5px;
+            width: 100%;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .filtr a:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(255, 215, 0, 0.4), 0 2px 0 #b8860b inset;
+            background: linear-gradient(135deg, #ffde33, #ffc04c);
+        }
+
+        .filtr i {
+            margin-right: 10px;
+            color: #2c3e50;
+        }
+
+        .day {
+            display: flex;
+            gap: 15px;
+            margin: 40px 0 30px;
+        }
+
+        .day p {
+            flex: 1;
+            padding: 12px 5px;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            text-align: center;
+            font-size: 15px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .day p:first-child {
+            background: linear-gradient(135deg, #ff6b6b, #ee5253);
+            color: #fff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .day p:last-child {
+            background: linear-gradient(135deg, #48dbfb, #0abde3);
+            color: #fff;
+        }
+
+        .day p:last-child:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 15px rgba(72, 219, 251, 0.4);
+        }
+
+        .day i {
+            margin-right: 6px;
+        }
+
+        .object {
+            margin-top: 40px;
+        }
+
+        .object p {
+            margin: 15px 0;
+        }
+
+        .object a {
+            color: #e0e0e0;
+            text-decoration: none;
+            font-size: 18px;
+            padding: 12px 20px;
+            border-radius: 40px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .object a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,215,0,0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .object a:hover::before {
+            left: 100%;
+        }
+
+        .object a:hover {
+            background: rgba(255, 215, 0, 0.1);
+            border-color: #ffd700;
+            transform: translateX(10px);
+            color: #ffd700;
+        }
+
+        .object i {
+            font-size: 22px;
+            width: 30px;
+            color: #ffd700;
+            filter: drop-shadow(0 2px 3px rgba(0,0,0,0.2));
+        }
+
+        /* Хедер - разноцветный, яркий */
+        .header {
+            background: linear-gradient(145deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3);
+            background-size: 400% 400%;
+            animation: gradientShift 8s ease infinite;
+            border: none;
+            padding: 35px 50px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .header::before {
+            content: '✨🎪🎯🎨🎭';
+            position: absolute;
+            top: 10px;
+            right: 30px;
+            font-size: 90px;
+            opacity: 0.3;
+            transform: rotate(5deg);
+            filter: drop-shadow(0 5px 10px rgba(0,0,0,0.2));
+            animation: bounce 2s ease infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: rotate(5deg) translateY(0); }
+            50% { transform: rotate(5deg) translateY(-10px); }
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(45deg, transparent, transparent 20px, rgba(255,255,255,0.1) 20px, rgba(255,255,255,0.1) 40px);
+            pointer-events: none;
+        }
+
+        .live {
+            font-size: 52px;
+            font-weight: 900;
+            color: #fff;
+            text-shadow: 3px 3px 0 #ff6b6b, 6px 6px 0 #feca57, 9px 9px 0 #48dbfb;
+            margin: 0 0 5px;
+            letter-spacing: 3px;
+            position: relative;
+            z-index: 1;
+            display: inline-block;
+            animation: wobble 3s ease infinite;
+        }
+
+        @keyframes wobble {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-1deg); }
+            75% { transform: rotate(1deg); }
+        }
+
+        .header h2 {
+            color: #fff;
+            font-size: 32px;
+            margin: 15px 0 0;
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-shadow: 2px 2px 3px rgba(0,0,0,0.3);
+            background: rgba(0, 0, 0, 0.2);
+            padding: 10px 25px;
+            border-radius: 60px;
+            backdrop-filter: blur(5px);
+            width: fit-content;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .header h2::before {
+            content: '🎲';
+            font-size: 45px;
+            animation: spin 4s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Каталог - разнообразные карточки */
+        .catalog {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            gap: 35px;
+            padding: 50px;
+            background: #f8f9fa;
+            background-image: radial-gradient(circle at 30% 40%, rgba(255,215,0,0.1) 0%, transparent 30%),
+                              radial-gradient(circle at 70% 80%, rgba(255,107,107,0.1) 0%, transparent 30%);
+        }
+
+        .catalog > div {
+            background: white;
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            cursor: pointer;
+            border: 2px solid transparent;
+            background-clip: padding-box;
+        }
+
+        .catalog > div:nth-child(3n+1) {
+            background: linear-gradient(white, white) padding-box,
+                        linear-gradient(135deg, #ff6b6b, #ee5253) border-box;
+        }
+
+        .catalog > div:nth-child(3n+2) {
+            background: linear-gradient(white, white) padding-box,
+                        linear-gradient(135deg, #feca57, #ff9ff3) border-box;
+        }
+
+        .catalog > div:nth-child(3n+3) {
+            background: linear-gradient(white, white) padding-box,
+                        linear-gradient(135deg, #48dbfb, #0abde3) border-box;
+        }
+
+        .catalog > div:hover {
+            transform: translateY(-20px) scale(1.02) rotate(1deg);
+            box-shadow: 0 35px 50px -15px rgba(0, 0, 0, 0.3);
+        }
+
+        .catalog > div::before {
+            content: '✨';
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            font-size: 80px;
+            opacity: 0;
+            transform: rotate(25deg) scale(0.5);
+            transition: all 0.4s ease;
+            z-index: 2;
+            filter: drop-shadow(0 5px 10px rgba(0,0,0,0.1));
+            pointer-events: none;
+        }
+
+        .catalog > div:hover::before {
+            opacity: 0.2;
+            transform: rotate(10deg) scale(1);
+            top: -10px;
+            right: -10px;
+        }
+
+        .catalog img {
+            width: 100%;
+            height: 260px;
+            object-fit: cover;
+            transition: all 0.6s ease;
+            border-bottom: 4px solid transparent;
+        }
+
+        .catalog > div:hover img {
+            transform: scale(1.1);
+        }
+
+        .catalog h2 {
+            font-size: 26px;
+            font-weight: 800;
+            margin: 25px 25px 15px;
+            color: #2c3e50;
+            position: relative;
+            padding-bottom: 12px;
+            line-height: 1.2;
+        }
+
+        .catalog h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 70px;
+            height: 4px;
+            background: linear-gradient(90deg, #ffd700, #ff6b6b, #48dbfb);
+            border-radius: 4px;
+            transition: width 0.4s ease;
+        }
+
+        .catalog > div:hover h2::after {
+            width: 150px;
+        }
+
+        .price {
+            padding: 0 25px 30px;
+            font-size: 34px;
+            font-weight: 900;
+            color: #2c3e50;
+            display: flex;
+            align-items: baseline;
+            gap: 5px;
+            flex-wrap: wrap;
+        }
+
+        .price::before {
+            content: '₽';
+            font-size: 26px;
+            color: #7f8c8d;
+            font-weight: 500;
+            margin-right: 5px;
+        }
+
+        .price::after {
+            content: 'уникальное предложение';
+            font-size: 14px;
+            color: #95a5a6;
+            margin-left: 10px;
+            font-weight: 400;
+            background: rgba(255, 215, 0, 0.1);
+            padding: 3px 15px;
+            border-radius: 40px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        /* Футер */
+        .footer {
+            grid-column: span 2;
+            background: linear-gradient(145deg, #2c3e50 0%, #1e2b3a 100%);
+            border: none;
+            padding: 25px 50px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer::before {
+            content: '📞📧📍📱💬';
+            position: absolute;
+            bottom: -20px;
+            left: 20px;
+            font-size: 100px;
+            opacity: 0.15;
+            white-space: nowrap;
+            transform: rotate(-5deg);
+            animation: slide 20s linear infinite;
+        }
+
+        @keyframes slide {
+            from { left: -100px; }
+            to { left: 100%; }
+        }
+
+        .svyaz {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #e0e0e0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .svyaz p {
+            margin: 0;
+            font-size: 19px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.3s ease;
+            padding: 12px 35px;
+            border-radius: 60px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            backdrop-filter: blur(5px);
+        }
+
+        .svyaz p:hover {
+            background: rgba(255, 215, 0, 0.15);
+            color: #ffd700;
+            transform: translateY(-3px) scale(1.02);
+            border-color: #ffd700;
+            box-shadow: 0 10px 20px rgba(255, 215, 0, 0.2);
+        }
+
+        .svyaz i {
+            font-size: 22px;
+            color: #ffd700;
+            filter: drop-shadow(0 2px 3px rgba(0,0,0,0.2));
+        }
+
+        /* Адаптивность */
+        @media (max-width: 1200px) {
+            .main {
+                grid-template-columns: 260px 1fr;
+            }
+            
+            .catalog {
+                grid-template-columns: repeat(2, 1fr);
+                padding: 40px;
+                gap: 30px;
+            }
+            
+            .live {
+                font-size: 44px;
+                text-shadow: 2px 2px 0 #ff6b6b, 4px 4px 0 #feca57, 6px 6px 0 #48dbfb;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .main {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto auto 1fr auto;
+            }
+            
+            .nav {
+                grid-row: auto;
+            }
+            
+            .footer {
+                grid-column: auto;
+            }
+            
+            .catalog {
+                grid-template-columns: 1fr;
+                padding: 35px;
+            }
+            
+            .header {
+                padding: 30px;
+            }
+            
+            .live {
+                font-size: 40px;
+            }
+            
+            .header h2 {
+                font-size: 28px;
+                flex-wrap: wrap;
+            }
+            
+            .svyaz {
+                flex-direction: column;
+                gap: 20px;
+                align-items: stretch;
+            }
+            
+            .svyaz p {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 576px) {
+            body {
+                padding: 10px;
+            }
+            
+            .main {
+                border-radius: 25px;
+            }
+            
+            .catalog {
+                padding: 25px;
+                gap: 25px;
+            }
+            
+            .price {
+                font-size: 28px;
+            }
+            
+            .price::after {
+                font-size: 12px;
+            }
+        }
+
+        /* Анимация для карточек */
+        @keyframes popIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.8) rotate(-5deg);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) rotate(0deg);
+            }
+        }
+
+        .catalog > div {
+            animation: popIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+        }
+
+        .catalog > div:nth-child(2) { animation-delay: 0.1s; }
+        .catalog > div:nth-child(3) { animation-delay: 0.2s; }
+        .catalog > div:nth-child(4) { animation-delay: 0.3s; }
+        .catalog > div:nth-child(5) { animation-delay: 0.4s; }
+        .catalog > div:nth-child(6) { animation-delay: 0.5s; }
+        .catalog > div:nth-child(7) { animation-delay: 0.6s; }
+        .catalog > div:nth-child(8) { animation-delay: 0.7s; }
+
+        /* Кастомный скроллбар */
+        ::-webkit-scrollbar {
+            width: 14px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #ff6b6b, #feca57, #48dbfb);
+            border-radius: 10px;
+            border: 3px solid #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #ff5252, #ffb347, #0abde3);
+        }
+
+        /* Дополнительные украшения */
+        .price span {
+            display: inline-block;
+            animation: blink 2s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+    </style>
+</head>
+<body>
+    <div class="main">
+        <!-- Левая навигация -->
+        <div class="item nav">
+            <input class="form-control search" list="datalistOptions" id="exampleDataList" placeholder="🔍 Поиск в 'Прочее'...">
+            <datalist id="datalistOptions">
+                <option value="Коммерческая недвижимость">
+                <option value="Складские помещения">
+                <option value="Офисы">
+                <option value="Торговые площади">
+                <option value="Бизнес-центры">
+                <option value="Спортивные объекты">
+                <option value="Рестораны">
+                <option value="Гостиницы">
+            </datalist> 
+            
+            <div class="filtr">
+                <a href="/filtr"><i class="bi bi-funnel"></i> Умный фильтр</a>
+            </div>
+            
+            <div class="day">
+                <p><i class="bi bi-calendar-check"></i> Длительно</p>
+                <p><i class="bi bi-calendar-week"></i> Кратко</p>
+            </div>
+            
+            <div class="object">
+                <p><a href="/"><i class="bi bi-house-door"></i> Главная</a></p>
+                <p><a href="/hometype/"><i class="bi bi-building"></i> Дома</a></p>
+                <p><a href="/garagestype/"><i class="bi bi-car-front"></i> Гаражи</a></p>
+                <p><a href="/apartamenttype/"><i class="bi bi-building"></i> Квартиры</a></p>
+                <p><a href="/plottype/"><i class="bi bi-tree"></i> Участки</a></p>
+                <p><a href="/othertype/"><i class="bi bi-grid-3x3-gap-fill"></i> Прочее</a></p>
+            </div>
+        </div>
+
+        <!-- Хедер -->
+        <div class="item header">
+            <h1 class="live">Жилье победы</h1>
+            <h2>✨ Всё самое интересное ✨</h2>
+        </div>
+
+        <!-- Каталог "Прочее" -->
+        <div class="catalog">
+            {% for obj in objects %}
+            <div>
+                <img src="https://avatars.mds.yandex.net/i?id=925e856a5f5273ed0c22259d8d130e37d2763549-12752873-images-thumbs&n=13" alt="Объект недвижимости">
+                <h2>{{ obj[1] }}</h2>
+                <div class="price">{{ obj[4] }}</div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Футер -->
+        <div class="item footer">
+            <div class="svyaz">
+                <p><i class="bi bi-telephone"></i> 8 (977) 787-77-77</p>
+                <p><i class="bi bi-envelope"></i> other.victory@mail.ru</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

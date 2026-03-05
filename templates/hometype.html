@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Дома | Жилье победы</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #2b3a4a 0%, #1d2b36 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .main {
+            display: grid;
+            grid-template-rows: auto 1fr auto;
+            grid-template-columns: 280px 1fr;
+            min-height: calc(100vh - 40px);
+            max-width: 1600px;
+            margin: 0 auto;
+            background: #f0f2f5;
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .item {
+            transition: all 0.3s ease;
+        }
+
+        /* Левая навигация - компактный стиль "премиум дерево" */
+        .nav {
+            grid-row: span 2;
+            background: linear-gradient(145deg, #2c1810 0%, #3d2920 100%);
+            color: #fff;
+            padding: 15px 12px; /* уменьшено с 30px 20px */
+            border: none;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 4px 0 20px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            gap: 10px; /* добавлен единый отступ */
+        }
+
+        .nav::before {
+            content: '🏠';
+            position: absolute;
+            bottom: -50px;
+            right: -50px;
+            font-size: 200px;
+            opacity: 0.03;
+            transform: rotate(-15deg);
+            pointer-events: none;
+        }
+
+        .search {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(205, 170, 130, 0.3);
+            color: #fff;
+            border-radius: 15px;
+            padding: 8px 15px; /* уменьшено с 14px 20px */
+            font-size: 14px; /* уменьшено с 16px */
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            margin-bottom: 0; /* убрано, теперь отступ через gap */
+            height: 40px; /* добавлено для единообразия */
+        }
+
+        .search:focus {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: #c8a27a;
+            box-shadow: 0 0 25px rgba(200, 162, 122, 0.3);
+            color: #fff;
+        }
+
+        .search::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+            font-style: italic;
+            font-size: 14px;
+        }
+
+        .filtr {
+            margin: 0; /* убраны внешние отступы */
+        }
+
+        .filtr a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 15px; /* уменьшено с 18px */
+            font-weight: 600;
+            padding: 8px 18px; /* уменьшено с 12px 30px */
+            background: linear-gradient(135deg, #c8a27a, #b48b63);
+            border-radius: 40px;
+            display: block; /* было inline-block, теперь на всю ширину */
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(200, 162, 122, 0.3);
+            letter-spacing: 0.5px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .filtr a:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(200, 162, 122, 0.5);
+            background: linear-gradient(135deg, #d4b294, #c8a27a);
+        }
+
+        .filtr i {
+            margin-right: 8px;
+        }
+
+        .day {
+            display: flex;
+            gap: 8px; /* уменьшено с 15px */
+            margin: 0; /* убраны внешние отступы */
+        }
+
+        .day p {
+            flex: 1;
+            padding: 5px 0; /* уменьшено с 10px 5px */
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            text-align: center;
+            font-size: 13px; /* уменьшено с 15px */
+            backdrop-filter: blur(5px);
+        }
+
+        .day p:first-child {
+            background: linear-gradient(135deg, #6b4f3a, #8b6f55);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            color: #ffd966;
+        }
+
+        .day p:last-child {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #e0d6cc;
+        }
+
+        .day p:last-child:hover {
+            background: rgba(200, 162, 122, 0.3);
+            border-color: #c8a27a;
+        }
+
+        .day i {
+            margin-right: 5px;
+        }
+
+        .object {
+            margin: 0; /* убраны внешние отступы */
+        }
+
+        .object p {
+            margin: 4px 0; /* уменьшено с 12px 0 */
+        }
+
+        .object a {
+            color: #e0d6cc;
+            text-decoration: none;
+            font-size: 14px; /* уменьшено с 17px */
+            padding: 6px 12px; /* уменьшено с 10px 15px */
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-left: 3px solid transparent;
+        }
+
+        .object a:hover {
+            background: rgba(200, 162, 122, 0.15);
+            border-left-color: #c8a27a;
+            transform: translateX(8px);
+            color: #ffd966;
+        }
+
+        .object i {
+            font-size: 18px; /* уменьшено с 20px */
+            width: 24px;
+            color: #c8a27a;
+        }
+
+        /* Хедер - стиль "уютный дом" */
+        .header {
+            background: linear-gradient(135deg, #8b6f55 0%, #6b4f3a 100%);
+            border: none;
+            padding: 30px 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '🏡';
+            position: absolute;
+            top: -20px;
+            right: 20px;
+            font-size: 120px;
+            opacity: 0.15;
+            transform: rotate(10deg);
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%); }
+            20% { transform: translateX(100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .live {
+            font-size: 48px;
+            font-weight: 800;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            margin: 0;
+            letter-spacing: 2px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header h2 {
+            color: #ffd966;
+            font-size: 28px;
+            margin: 10px 0 0;
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .header h2::before {
+            content: '🏠';
+            font-size: 32px;
+            filter: drop-shadow(2px 2px 2px rgba(0,0,0,0.3));
+        }
+
+        /* Каталог домов */
+        .catalog {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            padding: 40px;
+            background: #f8f5f0;
+        }
+
+        .catalog > div {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            cursor: pointer;
+            border: 1px solid rgba(200, 162, 122, 0.2);
+        }
+
+        .catalog > div:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 30px 40px -15px rgba(107, 79, 58, 0.4);
+            border-color: #c8a27a;
+        }
+
+        .catalog > div::before {
+            content: '🏡';
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 40px;
+            opacity: 0;
+            transform: rotate(15deg) scale(0.5);
+            transition: all 0.3s ease;
+            z-index: 2;
+            filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.2));
+        }
+
+        .catalog > div:hover::before {
+            opacity: 0.3;
+            transform: rotate(0deg) scale(1);
+        }
+
+        .catalog img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: all 0.5s ease;
+            border-bottom: 3px solid transparent;
+        }
+
+        .catalog > div:hover img {
+            transform: scale(1.1);
+            border-bottom-color: #c8a27a;
+        }
+
+        .catalog h2 {
+            font-size: 24px;
+            font-weight: 700;
+            margin: 20px 20px 10px;
+            color: #2c1810;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .catalog h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, #c8a27a, #8b6f55);
+            border-radius: 2px;
+            transition: width 0.3s ease;
+        }
+
+        .catalog > div:hover h2::after {
+            width: 100px;
+        }
+
+        .price {
+            padding: 0 20px 25px;
+            font-size: 32px;
+            font-weight: 800;
+            color: #2e7d32;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .price::before {
+            content: '₽';
+            font-size: 24px;
+            color: #6b4f3a;
+            font-weight: 400;
+        }
+
+        .price::after {
+            content: 'мес';
+            font-size: 16px;
+            color: #8b6f55;
+            margin-left: 5px;
+            font-weight: 400;
+        }
+
+        /* Футер */
+        .footer {
+            grid-column: span 2;
+            background: linear-gradient(135deg, #2c1810 0%, #3d2920 100%);
+            border: none;
+            padding: 25px 40px;
+        }
+
+        .svyaz {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #e0d6cc;
+        }
+
+        .svyaz p {
+            margin: 0;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s ease;
+            padding: 8px 20px;
+            border-radius: 40px;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .svyaz p:hover {
+            background: rgba(200, 162, 122, 0.15);
+            color: #ffd966;
+            transform: translateY(-2px);
+        }
+
+        .svyaz i {
+            font-size: 20px;
+            color: #c8a27a;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 1200px) {
+            .main {
+                grid-template-columns: 240px 1fr;
+            }
+            
+            .catalog {
+                grid-template-columns: repeat(2, 1fr);
+                padding: 30px;
+            }
+            
+            .live {
+                font-size: 40px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .main {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto auto 1fr auto;
+            }
+            
+            .nav {
+                grid-row: auto;
+            }
+            
+            .footer {
+                grid-column: auto;
+            }
+            
+            .catalog {
+                grid-template-columns: 1fr;
+                padding: 25px;
+            }
+            
+            .header {
+                padding: 25px;
+            }
+            
+            .live {
+                font-size: 36px;
+            }
+            
+            .header h2 {
+                font-size: 24px;
+            }
+            
+            .svyaz {
+                flex-direction: column;
+                gap: 15px;
+                align-items: flex-start;
+            }
+            
+            .svyaz p {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 576px) {
+            body {
+                padding: 10px;
+            }
+            
+            .catalog {
+                padding: 20px;
+            }
+            
+            .price {
+                font-size: 28px;
+            }
+        }
+
+        /* Стили для datalist (не все браузеры поддерживают стилизацию) */
+        datalist {
+            display: none;
+        }
+
+        /* Анимация загрузки */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .catalog > div {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .catalog > div:nth-child(2) { animation-delay: 0.1s; }
+        .catalog > div:nth-child(3) { animation-delay: 0.2s; }
+        .catalog > div:nth-child(4) { animation-delay: 0.3s; }
+        .catalog > div:nth-child(5) { animation-delay: 0.4s; }
+        .catalog > div:nth-child(6) { animation-delay: 0.5s; }
+    </style>
+</head>
+<body>
+    <div class="main">
+        <!-- Левая навигация (компактная) -->
+        <div class="item nav">
+            <input class="form-control search" list="datalistOptions" id="exampleDataList" placeholder="🔍 Поиск домов...">
+            <datalist id="datalistOptions">
+                <option value="Дома с участком">
+                <option value="Коттеджи">
+                <option value="Таунхаусы">
+                <option value="Дачи">
+                <option value="Особняки">
+            </datalist> 
+            
+            <div class="filtr">
+                <a href="/filtr/"><i class="bi bi-sliders2"></i> Расширенный фильтр</a> <!-- исправлено: добавлен слеш -->
+            </div>
+            
+            <div class="day">
+                <p><i class="bi bi-calendar-check"></i> Ежемесячно</p>
+                <p><i class="bi bi-calendar-week"></i> Посуточно</p>
+            </div>
+            
+            <div class="object">
+                <p><a href="/"><i class="bi bi-house-door"></i> Главная страница</a></p>
+                <p><a href="/hometype/"><i class="bi bi-building"></i> Дома</a></p>
+                <p><a href="/garagestype/"><i class="bi bi-car-front"></i> Гаражи</a></p>
+                <p><a href="/apartamenttype/"><i class="bi bi-building"></i> Квартиры</a></p>
+                <p><a href="/plottype/"><i class="bi bi-tree"></i> Участки</a></p>
+                <p><a href="/othertype/"><i class="bi bi-grid-3x3-gap-fill"></i> Прочее</a></p>
+            </div>
+        </div>
+
+        <!-- Хедер -->
+        <div class="item header">
+            <h1 class="live">Жилье победы</h1>
+            <h2>Дома и коттеджи</h2>
+        </div>
+
+        <!-- Каталог домов -->
+        <div class="catalog">
+            {% for obj in objects %}
+            <div>
+                <img src="https://avatars.mds.yandex.net/i?id=925e856a5f5273ed0c22259d8d130e37d2763549-12752873-images-thumbs&n=13" alt="Дом">
+                <h2>{{ obj[1] }}</h2>
+                <div class="price">{{ obj[4] }}</div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Футер -->
+        <div class="item footer">
+            <div class="svyaz">
+                <p><i class="bi bi-telephone"></i> 8 (977) 787-77-77</p>
+                <p><i class="bi bi-envelope"></i> victory.housing@mail.ru</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

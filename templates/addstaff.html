@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/addstaff.css">
+    <title>Создать сотрудника</title>
+</head>
+<body class="body">
+    <form action="/addstaff" method="post" class="form">
+        <label for="name">ФИО</label>
+        <input type="text" name="name" id="name">
+        <label for="phone">Номер телефона</label>
+        <input type="number" name="phone" id="phone">
+        <label for="profession">Профессия</label>
+        <select name="profession" id="profession">
+        {%if professions%}
+        {%for profession in professions%}
+        <option value="{{profession[0]}}">{{profession[1]}}</option>
+        {%endfor%}
+        {%endif%}
+        </select>
+        <label for="experience">Опыт работы</label>
+        <input type="number" name="experience" id="experience">
+        <button class="button">Создать</button>
+    </form>
+    <form action="/addprofession" method="post" class="form">
+        <label for="profession">Профессия</label>
+        <input type="text" name="profession" id="profession">
+        <button class="button">Создать</button>
+
+
+    </form>
+</body>
+</html>
