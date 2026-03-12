@@ -38,160 +38,181 @@
             transition: all 0.3s ease;
         }
 
-        /* Левая навигация - компактный стиль "премиум дерево" */
-        .nav {
-            grid-row: span 2;
-            background: linear-gradient(145deg, #2c1810 0%, #3d2920 100%);
-            color: #fff;
-            padding: 15px 12px; /* уменьшено с 30px 20px */
-            border: none;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 4px 0 20px rgba(0, 0, 0, 0.3);
-            display: flex;
-            flex-direction: column;
-            gap: 10px; /* добавлен единый отступ */
-        }
+        /* Левая навигация - единый компактный стиль */
+.nav {
+    grid-row: span 2;
+    background: linear-gradient(165deg, #1e293b 0%, #0f172a 100%);
+    color: #fff;
+    padding: 15px 12px;
+    border: none;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 4px 0 25px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
 
-        .nav::before {
-            content: '🏠';
-            position: absolute;
-            bottom: -50px;
-            right: -50px;
-            font-size: 200px;
-            opacity: 0.03;
-            transform: rotate(-15deg);
-            pointer-events: none;
-        }
+.nav::before {
+    content: '🏢🏬🏭';
+    position: absolute;
+    bottom: -20px;
+    right: -30px;
+    font-size: 200px;
+    opacity: 0.05;
+    transform: rotate(15deg);
+    white-space: nowrap;
+    line-height: 1;
+    pointer-events: none;
+}
 
-        .search {
-            background: rgba(255, 255, 255, 0.1);
-            border: 2px solid rgba(205, 170, 130, 0.3);
-            color: #fff;
-            border-radius: 15px;
-            padding: 8px 15px; /* уменьшено с 14px 20px */
-            font-size: 14px; /* уменьшено с 16px */
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
-            margin-bottom: 0; /* убрано, теперь отступ через gap */
-            height: 40px; /* добавлено для единообразия */
-        }
+.nav::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #3498db, #9b59b6);
+    animation: borderFlow 3s linear infinite;
+}
 
-        .search:focus {
-            background: rgba(255, 255, 255, 0.15);
-            border-color: #c8a27a;
-            box-shadow: 0 0 25px rgba(200, 162, 122, 0.3);
-            color: #fff;
-        }
+@keyframes borderFlow {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
+}
 
-        .search::placeholder {
-            color: rgba(255, 255, 255, 0.5);
-            font-style: italic;
-            font-size: 14px;
-        }
+.search {
+    background: rgba(255, 255, 255, 0.08);
+    border: 2px solid rgba(52, 152, 219, 0.3);
+    color: #fff;
+    border-radius: 16px;
+    padding: 8px 15px;
+    font-size: 14px;
+    backdrop-filter: blur(8px);
+    transition: all 0.3s ease;
+    margin-bottom: 0;
+    height: 40px;
+}
 
-        .filtr {
-            margin: 0; /* убраны внешние отступы */
-        }
+.search:focus {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: #3498db;
+    box-shadow: 0 0 25px rgba(52, 152, 219, 0.3);
+    color: #fff;
+    transform: translateY(-1px);
+}
 
-        .filtr a {
-            color: #fff;
-            text-decoration: none;
-            font-size: 15px; /* уменьшено с 18px */
-            font-weight: 600;
-            padding: 8px 18px; /* уменьшено с 12px 30px */
-            background: linear-gradient(135deg, #c8a27a, #b48b63);
-            border-radius: 40px;
-            display: block; /* было inline-block, теперь на всю ширину */
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(200, 162, 122, 0.3);
-            letter-spacing: 0.5px;
-            width: 100%;
-            text-align: center;
-        }
+.search::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 14px;
+}
 
-        .filtr a:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(200, 162, 122, 0.5);
-            background: linear-gradient(135deg, #d4b294, #c8a27a);
-        }
+.filtr {
+    margin: 0;
+}
 
-        .filtr i {
-            margin-right: 8px;
-        }
+.filtr a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 8px 18px;
+    background: linear-gradient(135deg, #3498db, #9b59b6);
+    border-radius: 30px;
+    display: block;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+    letter-spacing: 0.3px;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
 
-        .day {
-            display: flex;
-            gap: 8px; /* уменьшено с 15px */
-            margin: 0; /* убраны внешние отступы */
-        }
+.filtr a:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 25px rgba(52, 152, 219, 0.4);
+    background: linear-gradient(135deg, #3b9bdb, #a85fc0);
+}
 
-        .day p {
-            flex: 1;
-            padding: 5px 0; /* уменьшено с 10px 5px */
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 500;
-            text-align: center;
-            font-size: 13px; /* уменьшено с 15px */
-            backdrop-filter: blur(5px);
-        }
+.filtr i {
+    margin-right: 8px;
+}
 
-        .day p:first-child {
-            background: linear-gradient(135deg, #6b4f3a, #8b6f55);
-            border: 1px solid rgba(255, 215, 0, 0.3);
-            color: #ffd966;
-        }
+.day {
+    display: flex;
+    gap: 8px;
+    margin: 0;
+}
 
-        .day p:last-child {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: #e0d6cc;
-        }
+.day p {
+    flex: 1;
+    padding: 5px 0;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    text-align: center;
+    font-size: 13px;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
 
-        .day p:last-child:hover {
-            background: rgba(200, 162, 122, 0.3);
-            border-color: #c8a27a;
-        }
+.day p:first-child {
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
 
-        .day i {
-            margin-right: 5px;
-        }
+.day p:last-child {
+    background: rgba(255, 255, 255, 0.05);
+    color: #ecf0f1;
+}
 
-        .object {
-            margin: 0; /* убраны внешние отступы */
-        }
+.day p:last-child:hover {
+    background: rgba(52, 152, 219, 0.2);
+    border-color: #3498db;
+    transform: scale(1.02);
+}
 
-        .object p {
-            margin: 4px 0; /* уменьшено с 12px 0 */
-        }
+.day i {
+    margin-right: 5px;
+}
 
-        .object a {
-            color: #e0d6cc;
-            text-decoration: none;
-            font-size: 14px; /* уменьшено с 17px */
-            padding: 6px 12px; /* уменьшено с 10px 15px */
-            border-radius: 12px;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            border-left: 3px solid transparent;
-        }
+.object {
+    margin: 0;
+}
 
-        .object a:hover {
-            background: rgba(200, 162, 122, 0.15);
-            border-left-color: #c8a27a;
-            transform: translateX(8px);
-            color: #ffd966;
-        }
+.object p {
+    margin: 4px 0;
+}
 
-        .object i {
-            font-size: 18px; /* уменьшено с 20px */
-            width: 24px;
-            color: #c8a27a;
-        }
+.object a {
+    color: #bdc3c7;
+    text-decoration: none;
+    font-size: 14px;
+    padding: 6px 12px;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid transparent;
+}
+
+.object a:hover {
+    background: rgba(52, 152, 219, 0.1);
+    border-color: rgba(52, 152, 219, 0.3);
+    transform: translateX(6px);
+    color: #fff;
+}
+
+.object i {
+    font-size: 18px;
+    width: 24px;
+    color: #3498db;
+    filter: drop-shadow(0 2px 3px rgba(0,0,0,0.2));
+}
 
         /* Хедер - стиль "уютный дом" */
         .header {

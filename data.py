@@ -88,7 +88,29 @@ def getother():
     cursor.execute('select * from object, type_object where type_object.name != "Участок" and type_object.name != "Квартира" and type_object.name != "Гараж" and type_object.name != "Дом" and type_object.id = object.type ')
     return cursor.fetchall()
 
-def getbyfiltr(name,desc,employee,type,price):
-    query=f'''select * from object where {f"name like '%{name}%'" if name else 1} and {f"description like '%{desc}%'" if desc else 1} and {f"employ = {employee}" if employee else 1} and {f"type = {type}" if type else 1} and {f"price >= {price}" if price else 1 } '''
-    cursor.execute(query)
+def getbyfiltr(name, desc, employee, type, price):
+    conditions = []
+    params = []
+
+    if name:
+        conditions.append("name LIKE ?")
+        params.append(f'%{name}%')
+    if desc:
+        conditions.append("description LIKE ?")
+        params.append(f'%{desc}%')
+    if employee:
+        conditions.append("employ = ?")
+        params.append(employee)
+    if type:
+        conditions.append("type = ?")
+        params.append(type)
+    if price:
+        conditions.append("price >= ?")
+        params.append(price)
+
+    query = "SELECT * FROM object"
+    if conditions:
+        query += " WHERE " + " AND ".join(conditions)
+
+    cursor.execute(query, params)
     return cursor.fetchall()

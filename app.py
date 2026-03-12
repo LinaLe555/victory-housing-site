@@ -83,14 +83,22 @@ def filtr():
     type_object=gettype_object()
     return render_template('filtr.html', employees=emploes, type_object=type_object)
 
-@app.route ('/getbyfiltr/', methods=['POST'])
+@app.route('/getbyfiltr/', methods=['POST'])
 def getfiltr():
-    name=request.form.get('name')
-    desription=request.form.get('desription')
-    employee=request.form.get('employe')
-    type_object=request.form.get('type')
-    price=request.form.get('price')
-    objects=getbyfiltr(name,desription,employee,type_object,price)
+    name = request.form.get('name', '').strip()
+    description = request.form.get('description', '').strip()  # исправлено название поля
+    employee = request.form.get('employe', '').strip()
+    type_object = request.form.get('type', '').strip()
+    price = request.form.get('price', '').strip()
+
+    # Преобразуем пустые строки в None для корректной работы фильтра
+    objects = getbyfiltr(
+        name if name else None,
+        description if description else None,
+        int(employee) if employee and employee.isdigit() else None,
+        int(type_object) if type_object and type_object.isdigit() else None,
+        float(price) if price else None
+    )
     return render_template('objectsbyfiltr.html', objects=objects)
 
 
