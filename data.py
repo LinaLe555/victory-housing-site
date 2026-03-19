@@ -3,10 +3,12 @@ import sqlite3
 connect = sqlite3.connect("win_house.db", check_same_thread=False)
 cursor = connect.cursor()
 
-cursor.execute("""CREATE TABLE IF NOT EXISTS profession(
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            profession VARCHAR(30) NOT NULL
-               )""")
+cursor.execute(
+    """CREATE TABLE IF NOT EXISTS profession(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    profession VARCHAR(30) NOT NULL
+    )"""
+)
 
 cursor.execute("""CREATE TABLE IF NOT EXISTS employees(
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -56,7 +58,7 @@ def gettype_object():
     cursor.execute('select * from type_object')
     return cursor.fetchall()
 
-def  createtype(type_object):
+def createtype(type_object):
     cursor.execute('insert into type_object(name) values(?)', [type_object])
     connect.commit()
 
