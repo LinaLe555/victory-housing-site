@@ -70,6 +70,15 @@ def getobjects():
     cursor.execute('select * from object')
     return cursor.fetchall()
 
+def get_object(iid):
+    # (1, 'Дом', 'Уютный', 2, 1000000.0, 2, 1)
+    cursor.execute(
+        "SELECT * from object WHERE id = ?",
+        (iid,)
+    )
+
+    return cursor.fetchone()
+
 def gethome():
     cursor.execute('select * from object, type_object where type_object.name = "Дом" and type_object.id = object.type')
     return cursor.fetchall()

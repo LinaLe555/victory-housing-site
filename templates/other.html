@@ -451,19 +451,6 @@
             margin-right: 5px;
         }
 
-        .price::after {
-            content: 'уникальное предложение';
-            font-size: 14px;
-            color: #95a5a6;
-            margin-left: 10px;
-            font-weight: 400;
-            background: rgba(255, 215, 0, 0.1);
-            padding: 3px 15px;
-            border-radius: 40px;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-        }
-
         /* Футер */
         .footer {
             grid-column: span 2;
@@ -715,7 +702,16 @@
             <div>
                 <img src="https://avatars.mds.yandex.net/i?id=925e856a5f5273ed0c22259d8d130e37d2763549-12752873-images-thumbs&n=13" alt="Объект недвижимости">
                 <h2>{{ obj[1] }}</h2>
-                <div class="price">{{ obj[4] }}</div>
+                <div class="price-box">
+                    <span class="price">{{obj[4]}}</span>
+                    {% if obj[6] == 1 %}
+                        <span>в месяц</span>
+                    {% elif obj[6] == 2 %}
+                        <span>в сутки</span>
+                    {% else %}
+                        <span></span>
+                    {% endif %}
+                </div>
             </div>
             {% endfor %}
         </div>

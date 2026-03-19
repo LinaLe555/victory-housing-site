@@ -446,18 +446,6 @@
             margin-right: 5px;
         }
 
-        .price::after {
-            content: 'сотка/мес';
-            font-size: 16px;
-            color: #8fbc8f;
-            margin-left: 10px;
-            font-weight: 400;
-            background: rgba(120, 180, 120, 0.1);
-            padding: 3px 12px;
-            border-radius: 40px;
-            letter-spacing: 0.5px;
-        }
-
         /* Футер */
         .footer {
             grid-column: span 2;
@@ -701,7 +689,16 @@
             <div>
                 <img src="https://avatars.mds.yandex.net/i?id=925e856a5f5273ed0c22259d8d130e37d2763549-12752873-images-thumbs&n=13" alt="Земельный участок">
                 <h2>{{ obj[1] }}</h2>
-                <div class="price">{{ obj[4] }}</div>
+                <div class="price-box">
+                    <span class="price">{{obj[4]}}</span>
+                    {% if obj[6] == 1 %}
+                        <span>в месяц</span>
+                    {% elif obj[6] == 2 %}
+                        <span>в сутки</span>
+                    {% else %}
+                        <span></span>
+                    {% endif %}
+                </div>
             </div>
             {% endfor %}
         </div>

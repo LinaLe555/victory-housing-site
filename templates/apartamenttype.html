@@ -441,17 +441,6 @@
             font-weight: 500;
         }
 
-        .price::after {
-            content: 'в месяц';
-            font-size: 15px;
-            color: #64748b;
-            font-weight: 400;
-            background: #f1f5f9;
-            padding: 4px 14px;
-            border-radius: 40px;
-            margin-left: 8px;
-        }
-
         /* Футер */
         .footer {
             grid-column: span 2;
@@ -696,7 +685,16 @@
             <div>
                 <img src="https://mir-s3-cdn-cf.behance.net/project_modules/2800_opt_1/1bb62b173688629.6494486213c8f.jpg" alt="Квартира">
                 <h2>{{ obj[1] }}</h2>
-                <div class="price">{{ obj[4] }}</div>
+                <div class="price-box">
+                        <span class="price">{{obj[4]}}</span>
+                        {% if obj[6] == 1 %}
+                            <span>в месяц</span>
+                        {% elif obj[6] == 2 %}
+                            <span>в сутки</span>
+                        {% else %}
+                            <span></span>
+                        {% endif %}
+                    </div>
             </div>
             {% endfor %}
         </div>
