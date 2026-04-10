@@ -6,211 +6,10 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="../static/card.css">
     <link rel="stylesheet" href="../static/futer.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+    <link rel="stylesheet" href="../static/style.css">
+    <link rel="stylesheet" href="../static/header.css">
+    <link rel="stylesheet" href="../static/main.css">
 
-        a {
-            text-decoration: none;
-        }
-
-        body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        }
-
-        .main {
-            display: grid;
-            grid-template-rows: auto 1fr auto;
-            grid-template-columns: 240px 1fr;
-            min-height: 100vh;
-            max-width: 1600px;
-            margin: 20px auto;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            border-radius: 20px;
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .item {
-            transition: all 0.3s ease;
-        }
-
-        
-        /* Хедер */
-        .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border: none;
-            padding: 20px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .header::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-            animation: rotate 10s linear infinite;
-        }
-
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .live {
-            font-size: 42px;
-            font-weight: 800;
-            text-align: center;
-            color: white;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-            letter-spacing: 1px;
-            position: relative;
-            z-index: 1;
-            margin: 0;
-            animation: glow 2s ease-in-out infinite alternate;
-        }
-
-        @keyframes glow {
-            from { text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #ffd700; }
-            to { text-shadow: 0 0 20px #fff, 0 0 30px #ffd700, 0 0 40px #ffd700; }
-        }
-
-        /* Контент */
-        .content {
-            background: #f8f9fa;
-            padding: 25px;
-            border: none;
-        }
-
-        .content h2 {
-            color: #2c3e50;
-            font-size: 28px;
-            margin-bottom: 20px;
-            text-align: center;
-            font-weight: 700;
-            position: relative;
-        }
-
-        .content h2::after {
-            content: '';
-            position: absolute;
-            bottom: -8px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 3px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            border-radius: 2px;
-        }
-
-        /* Карусель */
-        .carousel {
-            background: white;
-            border-radius: 15px;
-            padding: 20px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-            margin-bottom: 30px;
-        }
-
-        .carousel-item > div {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            padding: 15px;
-        }
-
-        .carousel-item [class*="col"] {
-            background: white;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
-        }
-
-        .carousel-item [class*="col"]:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 12px 25px rgba(102, 126, 234, 0.3);
-        }
-
-        .carousel-item img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            transition: all 0.5s ease;
-        }
-
-        .carousel-item [class*="col"]:hover img {
-            transform: scale(1.08);
-        }
-
-        .carousel-item h3 {
-            text-align: center;
-            padding: 12px;
-            margin: 0;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            font-weight: 600;
-            font-size: 18px;
-        }
-
-        .carousel-control-prev,
-        .carousel-control-next {
-            width: 40px;
-            height: 40px;
-            background: rgba(102, 126, 234, 0.9);
-            border-radius: 50%;
-            top: 50%;
-            transform: translateY(-50%);
-            opacity: 1;
-            margin: 0 5px;
-        }
-
-        
-        /* Адаптивность */
-        @media (max-width: 1200px) {
-            .main {
-                grid-template-columns: 220px 1fr;
-                margin: 10px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .main {
-                grid-template-columns: 1fr;
-                grid-template-rows: auto auto auto auto;
-            }
-            
-            .nav {
-                grid-row: auto;
-            }
-            
-            .footer {
-                grid-column: auto;
-            }
-            
-            .carousel-item > div {
-                grid-template-columns: 1fr;
-            }
-            
-            .live {
-                font-size: 28px;
-            }
-            
-            .svyaz {
-                flex-direction: column;
-                align-items: center;
-                gap: 15px;
-            }
-        }
-    </style>
 {% endblock %}
 
 {% block content %}
@@ -225,33 +24,35 @@
             
             <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-inner">
+                    <!-- Первый слайд -->
                     <div class="carousel-item active">
-                        <div>
-                            <div class="col">
-                                <img src="https://img.gazeta.ru/files3/686/21345686/1-pic_32ratio_900x600-900x600-26932.jpg" alt="Василий">
-                                <h3>Василий ⭐</h3>
+                        <div class="row g-4">
+                            <div class="col-md-4">
+                                <img src="https://cs15.pikabu.ru/post_img/2024/12/01/2/og_og_1733012497285696993.jpg" alt="Адам">
+                                <h3>Адам ⭐</h3>
                             </div>
-                            <div class="col">
-                                <img src="https://i.pinimg.com/736x/e9/5f/fa/e95ffa89a053781473e6a2c0f9a86a82.jpg" alt="Георгий">
-                                <h3>Георгий ⭐</h3>
+                            <div class="col-md-4">
+                                <img src="https://avatars.mds.yandex.net/i?id=6f889b2563694c53ad03875da76d8f37_l-11377357-images-thumbs&n=13" alt="Джеффри">
+                                <h3>Джеффри ⭐</h3>
                             </div>
-                            <div class="col">
-                                <img src="https://avatars.mds.yandex.net/i?id=323a4ca658c5418d63fe680f6ecaa8c73ca615bf-5558644-images-thumbs&n=13" alt="Влад">
-                                <h3>Влад ⭐</h3>
+                            <div class="col-md-4">
+                                <img src="https://avatars.mds.yandex.net/i?id=bfc21f5f817d0b87923455004b4af311_l-3949311-images-thumbs&n=13" alt="Мелания">
+                                <h3>Мелания ⭐</h3>
                             </div>
                         </div>
                     </div>
+                    <!-- Второй слайд -->
                     <div class="carousel-item">
-                        <div>
-                            <div class="col">
-                                <img src="https://avatars.mds.yandex.net/i?id=1facbf747f39d31676103ed0e301f16c62aff576-3790382-images-thumbs&n=13" alt="Жека">
-                                <h3>Жека ⭐</h3>
+                        <div class="row g-4">
+                            <div class="col-md-4">
+                                <img src="https://img.gazeta.ru/files3/686/21345686/1-pic_32ratio_900x600-900x600-26932.jpg" alt="Василий">
+                                <h3>Василий ⭐</h3>
                             </div>
-                            <div class="col">
-                                <img src="https://p0.zoon.ru/3/1/5a26dbe0fd70916ca11ce425_5a4f59f69c49a.jpg" alt="Ульяна">
-                                <h3>Ульяна ⭐</h3>
+                            <div class="col-md-4">
+                                <img src="https://avatars.mds.yandex.net/i?id=323a4ca658c5418d63fe680f6ecaa8c73ca615bf-5558644-images-thumbs&n=13" alt="Влад">
+                                <h3>Влад ⭐</h3>
                             </div>
-                            <div class="col">
+                            <div class="col-md-4">
                                 <img src="https://bryansk.all-zabor.ru/images/reviews/rev2.png" alt="Мирослава">
                                 <h3>Мирослава ⭐</h3>
                             </div>
@@ -288,14 +89,6 @@
                     </div>
                 </a>
                 {% endfor %}
-            </div>
-        </div>
-
-        <!-- Футер -->
-        <div class="item footer">
-            <div class="svyaz">
-                <p>📞 8-977-787-77-77</p>
-                <p>✉️ victory.housing@mail.ru</p>
             </div>
         </div>
 
