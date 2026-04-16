@@ -1,4 +1,6 @@
 from flask import Flask, render_template, redirect, make_response, request
+from flask_login import (LoginManager, login_user, logout_user, login_required,
+                         current_user)
 
 from config import * 
 from data import *
@@ -109,6 +111,10 @@ def getfiltr():
     )
 
     return render_template('objectsbyfiltr.html', objects=objects)
+
+@app.route('/login', methods=['POST','GET'])
+def login():
+    return render_template('login.html')
 
 
 if __name__ ==  "__main__":

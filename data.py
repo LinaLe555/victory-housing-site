@@ -125,3 +125,10 @@ def getbyfiltr(name, desc, employee, type, price):
 
     cursor.execute(query, params)
     return cursor.fetchall()
+
+
+def userbylogin(username):
+    result = cursor.execute('select * from user where login = ?', (username,)).fetchall()
+    if result: 
+        return result[0]
+    return[]
