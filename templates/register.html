@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <link rel="stylesheet" href="../static/auch.css">
     <title>Document</title>
+
 </head>
 <body>
     <div class="div">
 <form method="POST">
-    <h2>Вход</h2>
+    <h2>Регистрация</h2>
     {%for alert in get_flashed_messages()%}
         <div class="alert" style="background-color: {{ alert[1] }}">
         <span class="closebtn" onclick="this.parentElement.style.display='none';">×</span>
@@ -21,9 +22,8 @@
         	<p>{{ form.password.label }}<br>{{ form.password() }}</p>
         	{{ form.submit() }}
         </form>
-
         <div class="a">
-        <a href="registr">Регистрация</a>
+        <a href="login">Вход в аккаунт</a>
         </div>
     </div>
 </body>

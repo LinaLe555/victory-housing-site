@@ -1,5 +1,15 @@
 
 <div class="item nav">
+    <div class="account">
+        {%if current_user.is_authenticated %}
+            <img src="../static/149e19f87afe0925d7b84ed81f2db766.jpq" alt="">
+            <a href="login">Имя пользователя</a>
+        {% else %}
+            <img src="../static/149e19f87afe0925d7b84ed81f2db766.jpq" alt="">
+            <a href="login">Войти</a>
+        {% endif %}
+
+    </div>
     <input class="form-control search" list="datalistOptions" id="exampleDataList" placeholder="🔍 Поиск недвижимости...">
     <datalist id="datalistOptions">
         <option value="Дома">

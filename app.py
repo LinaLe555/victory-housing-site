@@ -1,12 +1,27 @@
-from flask import Flask, render_template, redirect, make_response, request
+from flask import (Flask, render_template, redirect, make_response, request,
+                   url_for, flash)
 from flask_login import (LoginManager, login_user, logout_user, login_required,
                          current_user)
 
 from config import * 
 from data import *
 
+from user import *
+from forms import LoginForm, RegistrForm
+
 
 app = Flask(__name__)
+
+app.config['SECRET_KEY'] = '555'
+
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = 'login'
+
+
+@login_manager.user_loader
+def load_user(username):
+    return User.get(username)
 
 @app.route('/')
 def main():
@@ -114,7 +129,37 @@ def getfiltr():
 
 @app.route('/login', methods=['POST','GET'])
 def login():
-    return render_template('login.html')
+    if current_user.is_authenticated:
+        return redirect(url_for('main'))
+    form = LoginForm()
+    if form.validate_on_submit():
+        user = User.authenticate(form.username.data, form.password.data)
+        if user:
+            login_user(user)
+            return redirect(url_for('main'))
+    return render_template('login.html', form=form)
+
+@app.route('/registr', methods=['POST','GET'])
+def registr():
+    if current_user.is_authenticated:
+        return redirect(url_for('main'))
+    form = RegistrForm()
+    if form.validate_on_submit():
+        if  userbylogin(form.username.data)==[]:
+            userbyregister(form.username.data, form.password.data, 'user')
+            user = User.authenticate(form.username.data, form.password.data)
+            login_user(user)
+            return redirect(url_for('main'))
+        else:
+            flash(['Такой логин уже занят!', 'red'])
+            return render_template('register.html', form=form)
+    return render_template('register.html', form=form)
+
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('login'))
 
 
 if __name__ ==  "__main__":

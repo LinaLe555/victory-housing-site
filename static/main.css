@@ -210,6 +210,15 @@
             color: #667eea;
         }
 
+        .account {
+            img {
+                width: 50px;
+                height: 50px;
+                border-radius: 100%;
+            }
+        }
+
+
         /* Адаптивность */
         @media (max-width: 1200px) {
             .main {

@@ -1,5 +1,7 @@
 import sqlite3
 
+from werkzeug.security import generate_password_hash
+
 connect = sqlite3.connect("win_house.db", check_same_thread=False)
 cursor = connect.cursor()
 
@@ -132,3 +134,8 @@ def userbylogin(username):
     if result: 
         return result[0]
     return[]
+
+def userbyregister(login, password, role):
+    password = generate_password_hash(password)
+    cursor.execute('insert into user values (NULL, ?, ?, ?)',(login, role, password))
+    connect.commit()
