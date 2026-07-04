@@ -29,4 +29,4 @@ class User (UserMixin):
         return self.role == 'admin'
     
 
-print(generate_password_hash('555'))
+#print(generate_password_hash('555'))

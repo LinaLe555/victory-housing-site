@@ -10,8 +10,17 @@
     <form action="/addstaff" method="post" class="form">
         <label for="name">ФИО</label>
         <input type="text" name="name" id="name">
-        <label for="phone">Номер телефона</label>
-        <input type="number" name="phone" id="phone">
+   <div class="form-group">
+                        <label for="phone">
+                            <i class="bi bi-telephone"></i> Номер телефона
+                        </label>
+                        <input type="tel" class="form-control" id="phone" name="phone"
+                               placeholder="+7 1488 42 52 67"
+                               inputmode="numeric"
+                               pattern="[0-9+\-\(\)\s]*"
+                               required>
+                    </div>
+
         <label for="profession">Профессия</label>
         <select name="profession" id="profession">
         {%if professions%}
@@ -31,5 +40,24 @@
 
 
     </form>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const phoneInput = document.getElementById('phone');
+            if (phoneInput) {
+                phoneInput.addEventListener('focus', function() {
+                    if (!this.value.startsWith('+')) {
+                        this.value = '+ ';
+                    }
+                });
+                phoneInput.addEventListener('input', function() {
+                    if (this.value.length === 1 && this.value[0] !== '+') {
+                        this.value = '+ ' + this.value;
+                    }
+                });
+            }
+        });
+    </script>
+
 </body>
 </html>

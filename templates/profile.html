@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/profile.css">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+<div>
+      <img src="../static/149e19f87afe0925d7b84ed81f2db766.jpg" alt="">
+
+    
+</div>
+{%if current_user.is_admin()%}
+<a href="admin">Панель админа</a>
+{%endif%}
+<a href="">сменить аватарку</a>
+
+<a href="">поменять пароль</a>
+
+<a href="">написать в поддержку</a>
+
+<a href="">выйти</a>
+
+    </div>
+
+    
+</body>
+</html>

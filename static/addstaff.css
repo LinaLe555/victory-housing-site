@@ -1,20 +1,161 @@
-.body{
-    background-color: rgb(180, 209, 231);
+/* ===== addstaff.css ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-.button{
-    border-radius: 15px;
-    background-color: rgb(120, 196, 196);
-}
-
-.form{
+.body {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
-    flex-direction: column ;
-    text-align: center;
-    width: 43%;
-    margin: 0 auto;
-    margin-top: 45px;
+    align-items: flex-start;
+    padding: 40px 20px;
+    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    gap: 30px;
 }
 
-.form * {margin-bottom: 10px;}
+/* Карточки форм */
+.form {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 30px;
+    padding: 35px 40px 40px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 100%;
+    max-width: 500px;
+    flex: 1 1 400px;
+}
+
+.form:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 35px 60px -15px rgba(0, 0, 0, 0.6);
+}
+
+/* Метки */
+.form label {
+    display: block;
+    font-weight: 600;
+    color: #34495e;
+    font-size: 16px;
+    margin-bottom: 6px;
+}
+
+/* Поля ввода и селекты */
+.form input,
+.form select {
+    width: 100%;
+    padding: 12px 18px;
+    font-size: 16px;
+    border: 2px solid #e0e0e0;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+    background: white;
+    margin-bottom: 20px;
+    appearance: none;
+}
+
+.form input:focus,
+.form select:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+    outline: none;
+}
+
+.form input::placeholder {
+    color: #b0b0b0;
+    font-style: italic;
+}
+
+/* Собственная стрелка для select */
+.form select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23667eea' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 18px center;
+    background-size: 16px;
+}
+
+/* ===== НОВОЕ: Убираем стрелки у number ===== */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+/* ===== НОВОЕ: Стиль для поля телефона (tel) ===== */
+input[type="tel"] {
+    /* наследует все стили от .form input, но можно добавить специфику */
+    letter-spacing: 0.5px;
+}
+
+/* Кнопки */
+.button {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    border: none;
+    padding: 14px 30px;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 50px;
+    width: 100%;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 30px rgba(102, 126, 234, 0.5);
+    background: linear-gradient(135deg, #5a6fd8, #6a3f9c);
+}
+
+.button:active {
+    transform: scale(0.97);
+}
+
+/* Сброс отступов */
+.form * {
+    margin-bottom: 0;
+}
+
+/* Адаптивность */
+@media (max-width: 900px) {
+    .body {
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+    }
+    .form {
+        max-width: 100%;
+        flex: 1 1 auto;
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .form {
+        padding: 25px 20px;
+    }
+    .button {
+        font-size: 16px;
+        padding: 12px 20px;
+    }
+    .form input,
+    .form select {
+        padding: 10px 14px;
+        font-size: 15px;
+    }
+}

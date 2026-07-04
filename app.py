@@ -155,6 +155,16 @@ def registr():
             return render_template('register.html', form=form)
     return render_template('register.html', form=form)
 
+@app.route('/profile', methods=['POST','GET'])
+def profile():
+    if current_user.is_authenticated:
+        return render_template('profile.html')
+    
+@app.route('/admin', methods=['POST','GET'])
+def admin():
+    if current_user.is_authenticated:
+        return render_template('admin.html')
+
 @app.route('/logout')
 @login_required
 def logout():

@@ -1,0 +1,203 @@
+/* ------------------------------------------------------------------
+   Профиль в сине-фиолетовых тонах с удобными кнопками
+   ------------------------------------------------------------------ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', 'Segoe UI', Roboto, system-ui, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1.5rem;
+    background: linear-gradient(145deg, #1a1a3e 0%, #2d1b4e 40%, #1f2b5c 100%);
+    background-attachment: fixed;
+}
+
+/* Карточка профиля – полупрозрачная, с фиолетовым отливом */
+body > div {
+    max-width: 560px;
+    width: 100%;
+    background: rgba(240, 240, 255, 0.12);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 3rem;
+    padding: 2.8rem 2rem 2.5rem;
+    box-shadow: 
+        0 30px 60px -20px rgba(0, 0, 0, 0.6),
+        0 0 0 1px rgba(255, 255, 255, 0.08) inset;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid rgba(180, 160, 255, 0.15);
+}
+
+body > div:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 40px 70px -20px rgba(40, 20, 80, 0.5);
+}
+
+/* Аватар */
+body > div > div {
+    margin-bottom: 2rem;
+}
+
+body > div > div img {
+    display: block;
+    width: 140px;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin: 0 auto;
+    border: 4px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+body > div > div img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 12px 40px rgba(100, 80, 255, 0.3);
+}
+
+/* Контейнер для кнопок – сетка */
+body > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Обёртка для кнопок, чтобы сделать сетку */
+/* Так как ссылки идут подряд, мы не можем обернуть их в div без изменения HTML,
+   поэтому используем display: flex с flex-wrap и шириной */
+body > div > a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 0.9rem 1.2rem;
+    margin: 0.5rem;
+    border-radius: 60px;
+    border: 1px solid transparent;
+    background: rgba(255, 255, 255, 0.08);
+    color: #f0f0ff;
+    transition: all 0.25s ease;
+    cursor: pointer;
+    letter-spacing: 0.3px;
+    backdrop-filter: blur(4px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    min-width: 180px;
+    flex: 1 0 calc(50% - 1rem); /* две колонки с учётом margin */
+    max-width: calc(50% - 1rem);
+}
+
+/* На мобильных – одна колонка */
+@media (max-width: 550px) {
+    body > div > a {
+        flex: 1 0 100%;
+        max-width: 100%;
+        margin: 0.4rem 0;
+        padding: 0.9rem 1.5rem;
+        font-size: 1rem;
+    }
+}
+
+/* Иконки через псевдоэлементы */
+a:nth-of-type(1)::before { content: "⚙️ "; }
+a:nth-of-type(2)::before { content: "🖼️ "; }
+a:nth-of-type(3)::before { content: "🔑 "; }
+a:nth-of-type(4)::before { content: "✉️ "; }
+a:nth-of-type(5)::before { content: "🚪 "; }
+
+/* Общий эффект наведения */
+a:hover {
+    transform: scale(0.97) translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+/* ---- Цветовая схема: все в сине-фиолетовых оттенках ---- */
+
+/* Админка – глубокий синий */
+a:nth-of-type(1) {
+    background: linear-gradient(135deg, #3b4d8c, #2a3a6b);
+    border-color: #5b75b0;
+    color: #ffffff;
+}
+a:nth-of-type(1):hover {
+    background: linear-gradient(135deg, #2f3f75, #1f2f55);
+    border-color: #7a94cc;
+}
+
+/* Смена аватарки – фиолетово-синий */
+a:nth-of-type(2) {
+    background: linear-gradient(135deg, #5e4f8f, #483a73);
+    border-color: #8a7bbf;
+    color: #f5f0ff;
+}
+a:nth-of-type(2):hover {
+    background: linear-gradient(135deg, #4d3f78, #3a2d5e);
+    border-color: #a994d9;
+}
+
+/* Смена пароля – лавандовый */
+a:nth-of-type(3) {
+    background: linear-gradient(135deg, #7a6b9e, #64558a);
+    border-color: #a797c7;
+    color: #f5f0ff;
+}
+a:nth-of-type(3):hover {
+    background: linear-gradient(135deg, #68598a, #534672);
+    border-color: #bcadd6;
+}
+
+/* Поддержка – индиго */
+a:nth-of-type(4) {
+    background: linear-gradient(135deg, #4f5b9e, #3d4a85);
+    border-color: #7a8abc;
+    color: #f0f4ff;
+}
+a:nth-of-type(4):hover {
+    background: linear-gradient(135deg, #3f4b86, #313d6e);
+    border-color: #95a4d4;
+}
+
+/* Выход – насыщенный фиолетовый с красноватым оттенком */
+a:nth-of-type(5) {
+    background: linear-gradient(135deg, #7a3f6b, #623358);
+    border-color: #a86a94;
+    color: #ffeef9;
+}
+a:nth-of-type(5):hover {
+    background: linear-gradient(135deg, #66345a, #522948);
+    border-color: #c485b0;
+}
+
+/* Расстановка кнопок в сетку (flex-обёртка) */
+body > div {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.2rem;
+}
+
+/* Адаптив для маленьких экранов (уже задано выше) */
+
+/* Доступность */
+a:focus-visible {
+    outline: 3px solid #b8aaff;
+    outline-offset: 4px;
+    border-radius: 60px;
+}
+
+/* Дополнительно: плавный скролл */
+html {
+    scroll-behavior: smooth;
+}

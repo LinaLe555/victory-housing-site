@@ -139,3 +139,5 @@ def userbyregister(login, password, role):
     password = generate_password_hash(password)
     cursor.execute('insert into user values (NULL, ?, ?, ?)',(login, role, password))
     connect.commit()
+
+   
