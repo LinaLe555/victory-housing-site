@@ -3,7 +3,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 from data import *
 
-class User (UserMixin):
+class User(UserMixin):
     def __init__(self, id):
        self.id = id
        self.username = id

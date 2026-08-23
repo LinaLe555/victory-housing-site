@@ -1,5 +1,4 @@
 import os
-
 from functools import wraps
 
 from flask import (Flask, render_template, redirect, make_response, request,
@@ -202,13 +201,9 @@ def changepassword():
     if request.method=='POST':
         newpassword = str(request.form.get('newpassword'))
         oldpassword = str(request.form.get('oldpassword'))
-        print(0)
         if newpassword != '' and oldpassword != '':
-            print(1)
             if newpassword != oldpassword:
-                print(3)
                 if current_user.check_password(oldpassword):
-                    print(4)
                     current_user.update_password(newpassword)
     return render_template('changepassword.html')
 
@@ -252,6 +247,40 @@ def tikets():
 @app.route('/suppochat/<int:chat>', methods=['POST','GET'])
 def suppochat(chat):
     return render_template('suppochat.html', chat=chat)
+
+# Получить сообщения
+@app.route('/api/suppochat/<int:chat>/messages')
+def get_chat_messages(chat):
+    messages = get_message(chat)
+
+    result = []
+
+    for i in messages:
+        result.append({
+            'id': message[0],
+            'ticket_id': message[1],
+            'user_id': message[2],
+            'text': message[3],
+            'date': message[4]
+        })
+
+    return jsonify(result)
+
+# Отправить сообщение
+@app.route('/api/suppochat/<int:chat>/messages', methods=['POST'])
+def send_chat_message(chat):
+    data_json = request.get_json()
+
+    text = data_json.get('text', '').strip()
+
+    if not text:
+        return jsonify({
+            'error': 'Сообщение пустое'
+        }), 400
+
+    add_message(chat, current_user.id, text)
+
+    return jsonify({'success': True})
 
 if __name__ ==  "__main__":
     app.run(debug=True)

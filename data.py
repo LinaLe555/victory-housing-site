@@ -169,6 +169,7 @@ def add_message(tiketID,user,text):
     date = str(datetime.now())
     cursor.execute('insert into messages values (NULL, ?, ?, ?, ?)', (tiketID,user,text,date))
     connect.commit()
+
 def get_message(tiketID):
     message = cursor.execute('select * from messages where tiketID = ?',(tiketID,))
     return message.fetchall()
