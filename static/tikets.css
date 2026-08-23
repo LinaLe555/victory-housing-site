@@ -1,0 +1,206 @@
+/* ===== Общие сбросы и базовые настройки ===== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+    /* Новый градиентный фон */
+    background: linear-gradient(135deg, rgb(102, 126, 234) 0%, rgb(118, 75, 162) 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 2rem 1rem;
+    margin: 0;
+}
+
+/* ===== Контейнер для таблицы ===== */
+.table-wrapper {
+    width: 100%;
+    max-width: 1200px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 20, 40, 0.08), 0 8px 24px rgba(0, 0, 0, 0.04);
+    overflow: hidden;
+    padding: 1.5rem 0 0 0;
+}
+
+/* ===== Заголовок таблицы (необязательный) ===== */
+.table-header {
+    padding: 0 1.5rem 1.2rem 1.5rem;
+    border-bottom: 1px solid #eaedf2;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.table-header h2 {
+    font-weight: 600;
+    font-size: 1.5rem;
+    color: #1a2634;
+    letter-spacing: -0.3px;
+}
+
+.table-header .badge-count {
+    background: #eef2f6;
+    color: #1a2634;
+    padding: 0.3rem 1rem;
+    border-radius: 40px;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+/* ===== Сама таблица ===== */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+    background: white;
+}
+
+thead {
+    background: #f8fafd;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+thead th {
+    text-align: left;
+    padding: 1rem 1.5rem;
+    font-weight: 600;
+    color: #2d3a4a;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    opacity: 0.7;
+    white-space: nowrap;
+}
+
+tbody tr {
+    border-bottom: 1px solid #f0f3f8;
+    transition: background 0.15s ease;
+}
+
+tbody tr:last-child {
+    border-bottom: none;
+}
+
+tbody tr:hover {
+    background: #f6f9ff;
+    cursor: default;
+}
+
+tbody td {
+    padding: 1rem 1.5rem;
+    color: #1f2a3a;
+    vertical-align: middle;
+}
+
+/* ===== Имя пользователя (немного жирнее) ===== */
+tbody td:first-child {
+    font-weight: 500;
+    color: #0b1a2b;
+}
+
+/* ===== Дата (моноширинный шрифт) ===== */
+tbody td:nth-child(3) {
+    font-feature-settings: "tnum";
+    font-family: 'JetBrains Mono', 'SF Mono', 'Cascadia Code', monospace;
+    font-size: 0.9rem;
+    color: #4a5a6e;
+}
+
+/* ===== Бейдж статуса ===== */
+.status-badge {
+    display: inline-block;
+    padding: 0.2rem 0.9rem;
+    border-radius: 40px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+    background: #eef2f6;
+    color: #2d3a4a;
+    text-transform: capitalize;
+}
+
+/* Цвета для разных статусов (настраиваются по атрибуту data-status) */
+.status-badge[data-status="новый"] {
+    background: #dbeafe;
+    color: #1e4b8a;
+}
+.status-badge[data-status="в работе"] {
+    background: #fef3c7;
+    color: #92400e;
+}
+.status-badge[data-status="закрыт"] {
+    background: #d1fae5;
+    color: #065f46;
+}
+.status-badge[data-status="отклонён"] {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+/* ===== Чётные строки (полосатая раскраска) ===== */
+tbody tr:nth-child(even) {
+    background: #fafcff;
+}
+tbody tr:nth-child(even):hover {
+    background: #f4f9ff;
+}
+
+/* ===== Пустое состояние ===== */
+.empty-state {
+    text-align: center;
+    padding: 4rem 1rem;
+    color: #7a8a9e;
+    font-size: 1.1rem;
+}
+
+/* ===== Адаптивность для мобильных ===== */
+@media screen and (max-width: 700px) {
+    .table-wrapper {
+        border-radius: 16px;
+        padding: 0;
+    }
+
+    .table-header {
+        padding: 1rem 1rem 0.8rem 1rem;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    thead th,
+    tbody td {
+        padding: 0.8rem 1rem;
+    }
+
+    thead th {
+        font-size: 0.7rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    body {
+        padding: 1rem 0.5rem;
+    }
+    tbody td {
+        font-size: 0.85rem;
+        padding: 0.6rem 0.8rem;
+    }
+    thead th {
+        padding: 0.6rem 0.8rem;
+        font-size: 0.65rem;
+    }
+}

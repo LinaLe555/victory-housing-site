@@ -2,11 +2,11 @@
 <div class="item nav">
     <div class="account">
         {%if current_user.is_authenticated %}
-            <img src="../static/149e19f87afe0925d7b84ed81f2db766.jpg" alt="">
-            <a href="profile">{{ current_user.username }}</a>
+            <img src="{{current_user.getAvataras()}}" alt="">
+            <a href="{{ url_for('profile') }}">{{ current_user.username }}</a>
         {% else %}
             <img src="../static/149e19f87afe0925d7b84ed81f2db766.jpg" alt="">
-            <a href="login">Войти</a>
+           <a href="{{ url_for('login') }}">Войти</a>
         {% endif %}
 
     </div>
@@ -23,11 +23,7 @@
         <a href="/filtr"><i class="bi bi-sliders2"></i> Фильтр</a>
     </div>
             
-    <div class="day">
-        <p><i class="bi bi-calendar-check"></i> Ежемесячно</p>
-        <p><i class="bi bi-calendar-week"></i> Посуточно</p>
-    </div>
-            
+  
     <div class="object">
         <p><a href="/"><i class="bi bi-house-door"></i> Главная</a></p>
         <p><a href="/hometype/"><i class="bi bi-building"></i> Дома</a></p>

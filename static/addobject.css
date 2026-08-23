@@ -161,3 +161,32 @@ body {
         font-size: 24px;
     }
 }
+
+
+/* ============================================================
+   ССЫЛКА «НАЗАД» — РАСПОЛАГАЕТСЯ СВЕРХУ НАД КАРТОЧКОЙ
+   ============================================================ */
+a[href="index"] {
+    display: inline-block;
+    margin-bottom: 2rem;          /* отступ от карточки */
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #f0f0ff;
+    text-decoration: none;
+    background: rgba(255, 255, 255, 0.08);
+    padding: 0.6rem 1.8rem;
+    border-radius: 60px;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    transition: all 0.3s ease;
+
+    /* если хотите прижать ссылку к левому краю — раскомментируйте строку ниже */
+    align-self: flex-start; 
+}
+
+a[href="index"]:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.03);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}

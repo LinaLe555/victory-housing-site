@@ -7,24 +7,42 @@
     <title>Document</title>
 </head>
 <body>
+
+<a href="index">⇦</a>
+
     <div>
 <div>
-      <img src="../static/149e19f87afe0925d7b84ed81f2db766.jpg" alt="">
+      <img src="{{avatar}}" alt="">
 
     
 </div>
 {%if current_user.is_admin()%}
 <a href="admin">Панель админа</a>
 {%endif%}
-<a href="">сменить аватарку</a>
 
-<a href="">поменять пароль</a>
+<input type="checkbox" id="SmenitAvatar">
+  <label for="SmenitAvatar">сменить аватарку</label>
 
-<a href="">написать в поддержку</a>
+<a href="changepassword">поменять пароль</a>
 
-<a href="">выйти</a>
+<a href="helpwrite">написать в поддержку</a>
 
-    </div>
+<a href="{{ url_for('logout') }}">Выйти</a>
+
+    <div class="modal-overlay" id="BlockAvatar">
+        <div class="modal-content">
+            <p>text</p>
+            <form action="changeavataras" method="post" enctype="multipart/form-data">
+                <input type="file" name="img" accept="image/*">
+                <button type="submit">Выбрать аватараса</button>
+            </form>
+            <form action="choesavatar" method="post" >
+            <button type="submit" name="action" value="photo1"><img src="../static/avatarus/photo_2026-07-26_01-02-35 copy 2.jpg" alt=""></button>
+            <button type="submit" name="action" value="photo2"><img src="../static/avatarus/жиробасарс.jpg" alt=""></button>
+            <button type="submit" name="action" value="photo3"><img src="../static/avatarus/худойарс.jpg" alt=""></button>
+            </form>
+            <label for="SmenitAvatar" class="modal-close">&times;</label>
+            <div class="modal-body">
 
     
 </body>

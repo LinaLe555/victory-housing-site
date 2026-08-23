@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../static/help.css">
+</head>
+<body>
+     <div class="support-card">
+        <div class="support-header">
+            <h1>Написать в поддержку</h1>
+            <p>Мы ответим вам в течение 24 часов. Пожалуйста, опишите вопрос максимально подробно.</p>
+        </div>
+
+        <form action="helpwrite" method="POST">
+            <div class="form-group">
+                <label for="topic">
+                    <p>Тема обращения</p>
+                    <span class="hint">(выберите подходящую)</span>
+                </label>
+                <select class="form-control" id="topic" name="topic" required>
+                    <option value="" disabled selected>– Выберите тему –</option>
+                    <option value="tech">Техническая проблема</option>
+                    <option value="account">Доступ к аккаунту</option>
+                    <option value="feedback">Предложение / отзыв</option>
+                    <option value="other">Другое</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="message">
+                   <p> Сообщение </p>
+                    <span class="hint">(минимум 10 символов)</span>
+                </label>
+                <textarea class="form-control" id="message" name="message" placeholder="Опишите вашу проблему или вопрос..." required minlength="10"></textarea>
+            </div>
+
+            
+            <div class="form-group">
+                <label for="name">Ваше имя <span class="hint">(необязательно)</span></label>
+                <input class="form-control" type="text" id="name" name="name" placeholder="Меллстройность" />
+            </div>
+
+           
+
+            <button class="submit-btn" type="submit">
+                Отправить обращение
+                <span class="arrow">→</span>
+            </button>
+        </form>
+    </div>
+</body>
+</html>

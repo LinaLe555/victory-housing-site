@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/tikets.css">
+    <title>Document</title>
+</head>
+<body>
+   <div class="table-wrapper">
+    <div class="table-header">
+        <h2>Обращения</h2>
+        <span class="badge-count">Всего: {{ tikets|length if tikets else 0 }}</span>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                
+                <th>Имя пользователя</th>
+                <th>Тема обращения</th>
+                <th>Дата</th>
+                <th>Статус</th>
+                <th>Взять в работу</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if tikets %}
+                {% for tiket in tikets %}
+            <tr>
+                    
+                    <td>{{ tiket[4] }}</td>
+                    <td>{{ tiket[1] }}</td>
+                    <td>{{ tiket[6] }}</td>
+                    <td>
+                        
+                        <span class="status-badge" data-status="{{ tiket[5]|lower }}">
+                            {{ tiket[5] }}
+                        </span>
+                    </td>
+                    <td><a href="/suppochat/{{tiket[0]}}">открыть</a></td>
+                </tr> 
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="4" class="empty-state">Нет обращений для отображения</td>
+                </tr>
+            {% endif %}
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

@@ -28,5 +28,16 @@ class User (UserMixin):
     def is_admin(self):
         return self.role == 'admin'
     
+    def check_password(self, password):
+        
+        oldpassword = userbylogin(self.username)[3]
 
-#print(generate_password_hash('555'))
+        return check_password_hash(oldpassword, password)
+    
+    def update_password(self, newpassword):
+        changepasswordnosti(self.username, newpassword)
+
+
+    def getAvataras(self):
+        return getAvataras(self.username)
+    

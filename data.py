@@ -1,5 +1,7 @@
 import sqlite3
 
+from datetime import datetime
+
 from werkzeug.security import generate_password_hash
 
 connect = sqlite3.connect("win_house.db", check_same_thread=False)
@@ -140,4 +142,33 @@ def userbyregister(login, password, role):
     cursor.execute('insert into user values (NULL, ?, ?, ?)',(login, role, password))
     connect.commit()
 
-   
+def changepasswordnosti(login,password):
+    password = generate_password_hash(password)
+    cursor.execute('update user set password = ? where login = ?', (password, login))
+    connect.commit()
+
+def changeavatar(login, avatar):
+    cursor.execute('update user set avatar = ? where login = ?', (avatar, login))
+    connect.commit()
+
+def getAvataras(login):
+    img = cursor.execute('select avatar from user where login = ?',(login,))
+    return '../'+ img.fetchone()[0].replace('\\','/')
+
+def helpwrite(login,topic,message,name):
+    date = str(datetime.now())
+    status = 'new'
+    cursor.execute('insert into heilpodd values (NULL, ?, ?, ?, ?, ?, ?)', (topic,message,name,login,status,date))
+    connect.commit()
+
+def gettikets():
+    result = cursor.execute('select * from heilpodd').fetchall()
+    return result
+
+def add_message(tiketID,user,text):
+    date = str(datetime.now())
+    cursor.execute('insert into messages values (NULL, ?, ?, ?, ?)', (tiketID,user,text,date))
+    connect.commit()
+def get_message(tiketID):
+    message = cursor.execute('select * from messages where tiketID = ?',(tiketID,))
+    return message.fetchall()

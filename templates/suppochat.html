@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {{chat}}
+    <div id="chatmessage"></div>
+    <form  id="messageform">
+        <input type="text" placeholder="введите сообщение" id="messageinput">
+        <button type="submit">отправить</button>
+    </form>
+</body>
+<script>
+    const tiketID = {{ chat }};
+    const user = {{ current_user.id }};
+
+</script>
+</html>

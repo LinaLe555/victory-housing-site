@@ -14,6 +14,7 @@ body {
     font-family: 'Inter', 'Segoe UI', Roboto, system-ui, sans-serif;
     min-height: 100vh;
     display: flex;
+    flex-direction: column;      /* ← меняем на column, чтобы ссылка была сверху */
     justify-content: center;
     align-items: center;
     padding: 1.5rem;
@@ -111,7 +112,7 @@ body > div > a {
 }
 
 /* Иконки через псевдоэлементы */
-a:nth-of-type(1)::before { content: "⚙️ "; }
+a:nth-of-type(1)::before { content: ""; }
 a:nth-of-type(2)::before { content: "🖼️ "; }
 a:nth-of-type(3)::before { content: "🔑 "; }
 a:nth-of-type(4)::before { content: "✉️ "; }
@@ -201,3 +202,170 @@ a:focus-visible {
 html {
     scroll-behavior: smooth;
 }
+
+/* ============================================================
+   ССЫЛКА «НАЗАД» — РАСПОЛАГАЕТСЯ СВЕРХУ НАД КАРТОЧКОЙ
+   ============================================================ */
+a[href="index"] {
+    display: inline-block;
+    margin-bottom: 2rem;          /* отступ от карточки */
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #f0f0ff;
+    text-decoration: none;
+    background: rgba(255, 255, 255, 0.08);
+    padding: 0.6rem 1.8rem;
+    border-radius: 60px;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    transition: all 0.3s ease;
+
+    /* если хотите прижать ссылку к левому краю — раскомментируйте строку ниже */
+    align-self: flex-start; 
+}
+
+a[href="index"]:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.03);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* ============================================================
+   СТИЛИ ДЛЯ LABEL (кнопка «сменить аватарку»)
+   ============================================================ */
+/* Чтобы label выглядел как остальные кнопки-ссылки */
+body > div > label {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 0.9rem 1.2rem;
+    margin: 0.5rem;
+    border-radius: 60px;
+    border: 1px solid transparent;
+    background: linear-gradient(135deg, #5e4f8f, #483a73);
+    color: #f5f0ff;
+    transition: all 0.25s ease;
+    cursor: pointer;
+    letter-spacing: 0.3px;
+    backdrop-filter: blur(4px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    min-width: 180px;
+    flex: 1 0 calc(50% - 1rem);
+    max-width: calc(50% - 1rem);
+    border-color: #8a7bbf;
+}
+
+body > div > label:hover {
+    transform: scale(0.97) translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    background: linear-gradient(135deg, #4d3f78, #3a2d5e);
+    border-color: #a994d9;
+}
+
+/* Добавляем иконку перед текстом (как у ссылок) */
+body > div > label::before {
+    content: "🖼️ ";
+}
+
+/* На мобильных адаптируем */
+@media (max-width: 550px) {
+    body > div > label {
+        flex: 1 0 100%;
+        max-width: 100%;
+        margin: 0.4rem 0;
+        padding: 0.9rem 1.5rem;
+        font-size: 1rem;
+    }
+}
+
+/* ============================================================
+   МОДАЛЬНОЕ ОКНО – полная стилизация
+   ============================================================ */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    padding: 1.5rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+/* Показываем, когда чекбокс отмечен */
+#SmenitAvatar:checked ~ .modal-overlay {
+    display: flex;
+    opacity: 1;
+}
+
+/* Контент модалки – белый блок */
+.modal-content {
+    background: #ffffff;
+    border-radius: 2rem;
+    max-width: 500px;
+    width: 100%;
+    padding: 2.5rem 2rem 2rem;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
+    position: relative;
+    transform: scale(0.9) translateY(20px);
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    opacity: 0;
+}
+
+/* Анимация при открытии (чекбокс включён) */
+#SmenitAvatar:checked ~ .modal-overlay .modal-content {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+}
+
+/* Кнопка закрытия (крестик) */
+.modal-close {
+    position: absolute;
+    top: 0.8rem;
+    right: 1.2rem;
+    font-size: 2.2rem;
+    line-height: 1;
+    cursor: pointer;
+    color: #aaa;
+    transition: color 0.2s, transform 0.2s;
+    padding: 0.2rem 0.6rem;
+    background: none;
+    border: none;
+    font-weight: 300;
+}
+.modal-close:hover {
+    color: #222;
+    transform: rotate(90deg);
+}
+
+/* Тело модалки – пустой блок (можно потом наполнить) */
+.modal-body {
+    min-height: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #333;
+    font-size: 1rem;
+    /* Здесь можно разместить форму загрузки, превью и т.д. */
+}
+
+/*
+.modal-body h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: #2d1b4e;
+}
+/*
