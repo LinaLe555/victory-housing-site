@@ -1,0 +1,208 @@
+/* ===== chat.css ===== */
+/* Стили для страницы чата – фиолетово-синяя тема */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Основная карточка чата */
+body > *:not(script) {
+    max-width: 700px;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 30px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Заголовок чата ({{chat}}) */
+body > :first-child {
+    padding: 20px 25px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    font-size: 1.8rem;
+    font-weight: 700;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    border-bottom: 2px solid rgba(255,255,255,0.2);
+    letter-spacing: 0.5px;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+/* Область сообщений */
+#chatmessage {
+    flex: 1;
+    padding: 20px 25px;
+    min-height: 350px;
+    max-height: 500px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    background: #f8f9fa;
+    scroll-behavior: smooth;
+}
+
+/* Стилизация скроллбара (для Chrome, Edge) */
+#chatmessage::-webkit-scrollbar {
+    width: 6px;
+}
+#chatmessage::-webkit-scrollbar-track {
+    background: #e9ecef;
+    border-radius: 10px;
+}
+#chatmessage::-webkit-scrollbar-thumb {
+    background: #667eea;
+    border-radius: 10px;
+}
+#chatmessage::-webkit-scrollbar-thumb:hover {
+    background: #764ba2;
+}
+
+/* Базовый стиль для сообщений (вставляются динамически) */
+.message {
+    max-width: 75%;
+    padding: 10px 16px;
+    border-radius: 18px;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    word-wrap: break-word;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Сообщения отправителя (свои) – справа, синие */
+.message.mine {
+    align-self: flex-end;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    border-bottom-right-radius: 4px;
+}
+
+/* Сообщения других – слева, серые */
+.message.other {
+    align-self: flex-start;
+    background: #e9ecef;
+    color: #2c3e50;
+    border-bottom-left-radius: 4px;
+}
+
+/* Информация о времени / авторе (опционально) */
+.message .meta {
+    font-size: 0.7rem;
+    opacity: 0.7;
+    margin-top: 4px;
+    text-align: right;
+    color: inherit;
+}
+
+/* Форма ввода */
+#messageform {
+    display: flex;
+    gap: 12px;
+    padding: 15px 25px 20px;
+    background: white;
+    border-top: 1px solid #e0e0e0;
+    flex-shrink: 0;
+}
+
+#messageinput {
+    flex: 1;
+    padding: 12px 18px;
+    border: 2px solid #e0e0e0;
+    border-radius: 30px;
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+    background: #f8f9fa;
+}
+
+#messageinput:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+    background: white;
+}
+
+#messageform button {
+    padding: 12px 28px;
+    border: none;
+    border-radius: 30px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+    white-space: nowrap;
+}
+
+#messageform button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.5);
+    background: linear-gradient(135deg, #5a6fd8, #6a3f9c);
+}
+
+#messageform button:active {
+    transform: scale(0.96);
+}
+
+/* Адаптивность */
+@media (max-width: 600px) {
+    body {
+        padding: 10px;
+    }
+    body > *:not(script) {
+        border-radius: 20px;
+    }
+    body > :first-child {
+        font-size: 1.4rem;
+        padding: 15px 20px;
+    }
+    #chatmessage {
+        padding: 15px 18px;
+        min-height: 280px;
+        max-height: 400px;
+    }
+    .message {
+        max-width: 85%;
+        font-size: 0.9rem;
+    }
+    #messageform {
+        padding: 12px 18px 16px;
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+    #messageinput {
+        font-size: 0.95rem;
+        padding: 10px 14px;
+    }
+    #messageform button {
+        padding: 10px 20px;
+        font-size: 0.95rem;
+        flex: 1 1 100%;
+    }
+}
