@@ -1,5 +1,5 @@
 from flask_login import UserMixin
-from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.security import check_password_hash
 
 from data import *
 
@@ -29,15 +29,12 @@ class User(UserMixin):
         return self.role == 'admin'
     
     def check_password(self, password):
-        
         oldpassword = userbylogin(self.username)[3]
-
         return check_password_hash(oldpassword, password)
     
     def update_password(self, newpassword):
         changepasswordnosti(self.username, newpassword)
 
-
     def getAvataras(self):
         return getAvataras(self.username)
-    
+

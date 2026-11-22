@@ -2,9 +2,11 @@ import os
 from functools import wraps
 
 from flask import (Flask, render_template, redirect, make_response, request,
-                   url_for, flash)
+                   url_for, flash, jsonify)
 from flask_login import (LoginManager, login_user, logout_user, login_required,
                          current_user)
+
+from werkzeug.utils import secure_filename
 
 from config import * 
 from data import *
@@ -12,13 +14,13 @@ from data import *
 from user import *
 from forms import LoginForm, RegistrForm
 
-from werkzeug.utils import secure_filename
+from config import *
 
 
 app = Flask(__name__)
 
-app.config['SECRET_KEY'] = '555'
-app.config['UPLOAD_FOLDER'] = 'static/avataras'
+app.config['SECRET_KEY'] = SECRET_KEY
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 
 login_manager = LoginManager()
@@ -79,14 +81,15 @@ def addobject():
         employees = getemployees()
         type_object = gettype_object()
         return render_template("addobject.html", employees=employees, type_object=type_object)
+    
     name = request.form.get('name')
     description = request.form.get('description')
     employe = request.form.get('employe')
     type = request.form.get('type')
     price = request.form.get('price')
     createobject(name, description, employe, type, price)
-    return redirect('/addobject/')
 
+    return redirect('/addobject/')
 
 @app.route('/addtype/', methods=['POST'])
 @admin_requed
@@ -100,18 +103,15 @@ def hometype():
     objects = gethome()
     return render_template('hometype.html', objects=objects)
 
-
 @app.route('/apartamenttype/')
 def apartamenttype():
     objects = getapartament()
     return render_template('apartamenttype.html', objects=objects)
 
-
 @app.route('/plottype/')
 def plottype():
     objects = getplot()
     return render_template('plottype.html', objects=objects)
-
 
 @app.route('/garagestype/')
 def garagestype():
@@ -198,35 +198,43 @@ def logout():
 def changepassword():
     if not current_user.is_authenticated:
         return redirect(url_for('login'))
+    
     if request.method=='POST':
         newpassword = str(request.form.get('newpassword'))
         oldpassword = str(request.form.get('oldpassword'))
+
         if newpassword != '' and oldpassword != '':
             if newpassword != oldpassword:
                 if current_user.check_password(oldpassword):
                     current_user.update_password(newpassword)
+
     return render_template('changepassword.html')
 
 
 @app.route('/changeavataras', methods=['POST'])
 def changeavataras():
     file = request.files['img']
+
     if file and file.filename:
         filename = secure_filename(file.filename)
         path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
         file.save(path)
         changeavatar(current_user.username,path)
+
         return redirect(url_for('profile'))
     
 @app.route('/choesavatar', methods=['POST'])
 def choesavatar():
     action = request.form.get('action')
+    
+    # TODO: доделать загрузку аватарок
     if action == 'photo1':
       changeavatar(current_user.username, 'static/avatarus/photo_2026-07-26_01-02-35 copy 2.jpg')
     elif action == 'photo2':
       changeavatar(current_user.username, 'static/avatarus/худойарс.jpg')
     elif action == 'photo3':
           changeavatar(current_user.username, 'static/avatarus/жиробасарс.jpg')
+
     return redirect(url_for('profile'))
 
 @app.route('/helpwrite', methods=['POST','GET'])
@@ -236,9 +244,10 @@ def heilwrite():
         message = request.form.get('message')
         name = request.form.get('name')
         helpwrite(current_user.id,topic,message,name)
+    
     return render_template('helpwrite.html')
 
-@app.route('/tikets',methods=['POST','GET'])
+@app.route('/tikets', methods=['POST','GET'])
 @admin_requed
 def tikets():
     d = gettikets()
@@ -257,11 +266,11 @@ def get_chat_messages(chat):
 
     for i in messages:
         result.append({
-            'id': message[0],
-            'ticket_id': message[1],
-            'user_id': message[2],
-            'text': message[3],
-            'date': message[4]
+            'id': messages[0],
+            'ticket_id': messages[1],
+            'user_id': messages[2],
+            'text': messages[3],
+            'date': messages[4]
         })
 
     return jsonify(result)
@@ -283,6 +292,6 @@ def send_chat_message(chat):
     return jsonify({'success': True})
 
 if __name__ ==  "__main__":
-    app.run(debug=True)
+    app.run(debug=DEBUG)
 
     

@@ -1,11 +1,13 @@
 import sqlite3
-
 from datetime import datetime
-
 from werkzeug.security import generate_password_hash
 
-connect = sqlite3.connect("win_house.db", check_same_thread=False)
+from config import DB_PATH
+
+connect = sqlite3.connect(DB_PATH, check_same_thread=False)
 cursor = connect.cursor()
+
+# TODO: Запихать все в классы
 
 cursor.execute(
     """CREATE TABLE IF NOT EXISTS profession(
@@ -50,7 +52,7 @@ def createprofession(profession):
     cursor.execute('insert into profession(profession) values(?)', [profession])
     connect.commit()
 
-def createstaff(name,phone,profession,experience):
+def createstaff(name, phone, profession, experience):
     cursor.execute('insert into employees (full_name,phone,profession,experience) values(?,?,?,?)',[name,phone,profession,experience])
     connect.commit()
 
@@ -66,7 +68,7 @@ def createtype(type_object):
     cursor.execute('insert into type_object(name) values(?)', [type_object])
     connect.commit()
 
-def createobject (name,description,employe,type, price):
+def createobject(name, description, employe, type, price):
     cursor.execute('insert into object (name,description,employ,type, price) values(?,?,?,?,?)',[name,description,employe,type, price])
     connect.commit()
 
@@ -142,7 +144,7 @@ def userbyregister(login, password, role):
     cursor.execute('insert into user values (NULL, ?, ?, ?)',(login, role, password))
     connect.commit()
 
-def changepasswordnosti(login,password):
+def changepasswordnosti(login, password):
     password = generate_password_hash(password)
     cursor.execute('update user set password = ? where login = ?', (password, login))
     connect.commit()
@@ -155,7 +157,7 @@ def getAvataras(login):
     img = cursor.execute('select avatar from user where login = ?',(login,))
     return '../'+ img.fetchone()[0].replace('\\','/')
 
-def helpwrite(login,topic,message,name):
+def helpwrite(login, topic, message, name):
     date = str(datetime.now())
     status = 'new'
     cursor.execute('insert into heilpodd values (NULL, ?, ?, ?, ?, ?, ?)', (topic,message,name,login,status,date))
@@ -165,7 +167,7 @@ def gettikets():
     result = cursor.execute('select * from heilpodd').fetchall()
     return result
 
-def add_message(tiketID,user,text):
+def add_message(tiketID, user, text):
     date = str(datetime.now())
     cursor.execute('insert into messages values (NULL, ?, ?, ?, ?)', (tiketID,user,text,date))
     connect.commit()
